@@ -1,0 +1,21 @@
+{
+  "name": "aws-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "deploy": "sls deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.111",
+    "@types/node": "^18.14.2",
+    "serverless-plugin-typescript": "^2.1.4",
+    "typescript": "^4.9.5"
+  }
+}
