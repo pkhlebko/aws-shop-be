@@ -1,10 +1,9 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
-import { corsHeaders } from '../constants';
-import { products } from '../data/products';
+import { docClient, headers, productsTableName } from '../lib/constants';
 
 export async function getProductsList(): Promise<APIGatewayProxyResult> {
-  const statusCode = 200;
-  const body = JSON.stringify(products);
+  const output = await docClient.scan({ TableName: productsTableName }).promise();
+  const body = JSON.stringify(output.Items);
 
-  return { statusCode, body, headers: corsHeaders };
+  return { statusCode: 200, headers, body };
 };

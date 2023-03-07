@@ -10,11 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-lambda": "^1.0.7"
+    "aws-lambda": "^1.0.7",
+    "uuid": "^9.0.0",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",
     "@types/node": "^18.14.2",
+    "@types/uuid": "^9.0.1",
     "serverless-plugin-typescript": "^2.1.4",
     "typescript": "^4.9.5"
   }
