@@ -1,8 +1,12 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import * as yup from 'yup';
 import { v4 } from 'uuid';
-import { docClient, headers, productsTableName } from '../lib/constants';
+import { headers, productsTableName } from '../lib/constants';
 import { handleError } from '../lib/common/error-handler';
+
+import AWS = require('aws-sdk');
+
+export const docClient = new AWS.DynamoDB.DocumentClient();
 
 const schema = yup.object().shape({
   title: yup.string().required(),

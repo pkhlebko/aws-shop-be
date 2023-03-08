@@ -1,5 +1,14 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
-import { docClient, headers, productsTableName } from '../lib/constants';
+import { DynamoDB } from 'aws-sdk';
+
+const productsTableName = 'ProductsTable';
+const headers = {
+  'content-type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true,
+};
+
+export const docClient = new DynamoDB.DocumentClient();
 
 export async function getProductsList(): Promise<APIGatewayProxyResult> {
   const output = await docClient.scan({ TableName: productsTableName }).promise();
