@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "lib/scripts/populate.ts",
-  "type": "module",
   "scripts": {
     "deploy": "sls deploy",
-    "populate": "npx nodemon lib/scripts/populate.ts",
+    "populate": "node lib/scripts/populate.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

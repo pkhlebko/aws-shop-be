@@ -64,3 +64,16 @@ resources:
         KeySchema:
           - AttributeName: productID
             KeyType: HASH
+    StocksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: StocksTable
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        AttributeDefinitions:
+          - AttributeName: productID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: productID
+            KeyType: HASH
