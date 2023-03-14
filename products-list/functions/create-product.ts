@@ -1,31 +1,27 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import * as yup from 'yup';
-import { v4 } from 'uuid';
-import { headers, productsTableName } from '../lib/constants';
 import { handleError } from '../lib/common/error-handler';
-
-import AWS = require('aws-sdk');
-
-export const docClient = new AWS.DynamoDB.DocumentClient();
+import { headers } from '../lib/constants';
+import * as yup from 'yup';
+import { ProductService } from '../lib/services/products.service';
 
 const schema = yup.object().shape({
   title: yup.string().required(),
   description: yup.string().required(),
   price: yup.number().required(),
+  count: yup.number().required(),
 });
 
 export async function createProduct(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+  const productService = new ProductService();
+
   try {
     const reqBody = JSON.parse(event.body as string);
 
     await schema.validate(reqBody, { abortEarly: false });
 
-    const productID = v4();
-    const product = { ...reqBody, productID };
+    const fullProduct = await productService.createProduct(reqBody);
 
-    await docClient.put({ TableName: productsTableName, Item: product }).promise();
-
-    return { statusCode: 201, headers: headers, body: JSON.stringify(product) };
+    return { statusCode: 201, headers: headers, body: JSON.stringify(fullProduct) };
   } catch (e) {
     return handleError(e);
   }

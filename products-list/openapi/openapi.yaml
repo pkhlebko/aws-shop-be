@@ -5,7 +5,7 @@ info:
     Product list service
   version: 1.0.0
 servers:
-  - url: https://v26apwuidf.execute-api.us-east-1.amazonaws.com/dev/
+  - url: https://j9qub2jznd.execute-api.us-east-1.amazonaws.com/dev/
 paths:
   /products:
     get:
@@ -24,13 +24,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
-  /products/{productId}:
+  /products/{product_id}:
     get:
       summary: Get product by ID
       description: Returns a single product
       operationId: getPetById
       parameters:
-        - name: productId
+        - name: product_id
           in: path
           description: ID of pet to return
           required: true

@@ -1,6 +1,6 @@
 # Product list
 
-Service url: (https://v26apwuidf.execute-api.us-east-1.amazonaws.com/dev/products)
+Service url: (https://j9qub2jznd.execute-api.us-east-1.amazonaws.com/dev/products)
 Documentation located in openapi folder
 
 

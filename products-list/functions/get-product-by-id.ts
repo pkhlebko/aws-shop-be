@@ -1,17 +1,21 @@
 import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { handleError } from '../lib/common/error-handler';
-import { fetchProductById } from '../lib/common/fetch-product-by-id';
 import { headers } from '../lib/constants';
+import { ProductService } from '../lib/services/products.service';
 
 export async function getProductsById(event: APIGatewayEvent): Promise<APIGatewayProxyResult> {
-  try {
-    const product = await fetchProductById(event.pathParameters?.id as string);
+  const productService = new ProductService();
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(product),
-    };
+  try {
+    const id: string|undefined = event.pathParameters?.id;
+
+    if (!id) {
+      return { statusCode: 404, headers, body: `ID not found. \n ${JSON.stringify(event)}` };
+    }
+
+    const product = await productService.getProductById(event.pathParameters?.id as string);
+
+    return { statusCode: 200, headers, body: JSON.stringify(product) };
   } catch (e) {
     return handleError(e);
   }

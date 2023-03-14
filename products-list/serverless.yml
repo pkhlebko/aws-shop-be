@@ -15,6 +15,7 @@ provider:
             - "dynamodb:Scan"
           Resource:
             - { "Fn::GetAtt": ["ProductsTable", "Arn"] }
+            - { "Fn::GetAtt": ["StocksTable", "Arn"] }
 
 functions:
   createProduct:
@@ -23,13 +24,6 @@ functions:
       - http:
           path: /products
           method: post
-          cors: true
-  deleteProduct:
-    handler: index.deleteProduct
-    events:
-      - http:
-          path: /products
-          method: delete
           cors: true
   getProductsList:
     handler: index.getProductsList
@@ -42,7 +36,7 @@ functions:
     handler: index.getProductsById
     events:
       - http:
-          path: /products/{productId}
+          path: /products/{id}
           method: get
           cors: true
 
@@ -59,10 +53,10 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         AttributeDefinitions:
-          - AttributeName: productID
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: productID
+          - AttributeName: id
             KeyType: HASH
     StocksTable:
       Type: AWS::DynamoDB::Table
@@ -72,8 +66,8 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         AttributeDefinitions:
-          - AttributeName: productID
+          - AttributeName: product_id
             AttributeType: S
         KeySchema:
-          - AttributeName: productID
+          - AttributeName: product_id
             KeyType: HASH

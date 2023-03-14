@@ -1,7 +1,3 @@
-import * as AWS from 'aws-sdk';
-
-export const docClient = new AWS.DynamoDB.DocumentClient();
-
 export const productsTableName = 'ProductsTable';
 export const stocksTableName = 'StocksTable';
 
