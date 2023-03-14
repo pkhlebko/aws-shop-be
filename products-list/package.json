@@ -1,0 +1,30 @@
+{
+  "name": "aws-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/scripts/populate.ts",
+  "scripts": {
+    "deploy": "sls deploy",
+    "populate": "node lib/scripts/populate.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-lambda": "^1.0.7",
+    "aws-sdk": "^2.1330.0",
+    "node-fetch": "^3.3.0",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1",
+    "uuid": "^9.0.0",
+    "yup": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.111",
+    "@types/node": "^18.14.2",
+    "@types/node-fetch": "^2.6.2",
+    "@types/uuid": "^9.0.1",
+    "serverless-plugin-typescript": "^2.1.4",
+    "typescript": "^4.9.5"
+  }
+}

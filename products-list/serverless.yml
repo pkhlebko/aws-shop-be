@@ -1,0 +1,73 @@
+service: products-list
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:DeleteItem"
+            - "dynamodb:Scan"
+          Resource:
+            - { "Fn::GetAtt": ["ProductsTable", "Arn"] }
+            - { "Fn::GetAtt": ["StocksTable", "Arn"] }
+
+functions:
+  createProduct:
+    handler: index.createProduct
+    events:
+      - http:
+          path: /products
+          method: post
+          cors: true
+  getProductsList:
+    handler: index.getProductsList
+    events:
+      - http:
+          path: /products
+          method: get
+          cors: true
+  getProductsById:
+    handler: index.getProductsById
+    events:
+      - http:
+          path: /products/{id}
+          method: get
+          cors: true
+
+plugins:
+  - serverless-plugin-typescript
+
+resources:
+  Resources:
+    ProductsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ProductsTable
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+    StocksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: StocksTable
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        AttributeDefinitions:
+          - AttributeName: product_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: product_id
+            KeyType: HASH
